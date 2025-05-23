@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Живая открытка 🎉</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- Day.js -->
+    <script src="https://unpkg.com/dayjs@1.11.10/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.11.10/locale/ru.js"></script>
+    
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Comfortaa', cursive;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .timeline-line {
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+        }
+        
+        .shake-animation {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen text-white overflow-x-hidden">
+    <!-- OKAK Overlay -->
+    <div id="okakOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 opacity-0 pointer-events-none transition-opacity duration-500">
+        <img src="https://i.ibb.co/F4gwVStB/okak-8-1.png" alt="OKAK" class="max-w-full max-h-full object-contain transform scale-0 transition-transform duration-500" id="okakImage">
+    </div>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col items-center justify-center px-4 relative">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 text-center" data-aos="fade-up">
+            Привет, дорогой друг! 🎊
+        </h1>
+        
+        <p class="text-xl md:text-2xl mb-12 text-center max-w-2xl" data-aos="fade-up" data-aos-delay="200">
+            Добро пожаловать в мир веселья и радости!
+        </p>
+        
+        <button id="confettiBtn" class="bg-white text-purple-600 px-8 py-4 rounded-full text-xl font-bold hover:scale-110 transition-transform duration-300 shadow-2xl pulse-animation" data-aos="zoom-in" data-aos-delay="400">
+            Запустить фейерверк! 🎆
+        </button>
+        
+        <div class="absolute bottom-10 animate-bounce">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+    
+    <!-- Timeline Section -->
+    <section class="py-20 px-4">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16" data-aos="fade-up">
+            Хроники нашей дружбы 🤝
+        </h2>
+        
+        <div class="max-w-4xl mx-auto relative">
+            <!-- Timeline line -->
+            <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 timeline-line transform md:-translate-x-1/2"></div>
+            
+            <!-- Timeline items -->
+            <div class="space-y-12">
+                <div class="relative flex items-center" data-aos="fade-right">
+                    <div class="bg-white text-purple-600 rounded-full w-16 h-16 flex items-center justify-center font-bold text-xl z-10 shadow-lg">
+                        🌟
+                    </div>
+                    <div class="ml-8 md:ml-0 md:absolute md:left-1/2 md:transform md:translate-x-8 bg-white/10 backdrop-blur-md p-6 rounded-2xl max-w-md">
+                        <h3 class="text-xl font-bold mb-2">Август 2021</h3>
+                        <p>День знакомства: точная дата утеряна в аналах истории... 📅❓</p>
+                    </div>
+                </div>
+                
+                <div class="relative flex items-center justify-end" data-aos="fade-left">
+                    <div class="mr-8 md:mr-0 md:absolute md:right-1/2 md:transform md:-translate-x-8 bg-white/10 backdrop-blur-md p-6 rounded-2xl max-w-md text-right md:text-left">
+                        <h3 class="text-xl font-bold mb-2">Сентябрь 2023</h3>
+                        <p>Два года спустя: мы всё ещё не можем вспомнить точную дату знакомства, но зато помним все мемы! 😄</p>
+                    </div>
+                    <div class="bg-white text-purple-600 rounded-full w-16 h-16 flex items-center justify-center font-bold text-xl z-10 shadow-lg absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2">
+                        📈
+                    </div>
+                </div>
+                
+                <div class="relative flex items-center" data-aos="fade-right">
+                    <div class="bg-white text-purple-600 rounded-full w-16 h-16 flex items-center justify-center font-bold text-xl z-10 shadow-lg">
+                        🚀
+                    </div>
+                    <div class="ml-8 md:ml-0 md:absolute md:left-1/2 md:transform md:translate-x-8 bg-white/10 backdrop-blur-md p-6 rounded-2xl max-w-md">
+                        <h3 class="text-xl font-bold mb-2">Декабрь 2024</h3>
+                        <p>Видимся раз в год, а говорим так, будто расстались вчера. 🔁</p>
+                    </div>
+                </div>
+                
+                <div class="relative flex items-center justify-end" data-aos="fade-left">
+                    <div class="mr-8 md:mr-0 md:absolute md:right-1/2 md:transform md:-translate-x-8 bg-white/10 backdrop-blur-md p-6 rounded-2xl max-w-md text-right md:text-left">
+                        <h3 class="text-xl font-bold mb-2">30 февраля 2027</h3>
+                        <p>Конец нашей дружбы. В день, который не существует. 🎃</p>
+                        <button id="okakBtn" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-red-600 transition-colors duration-300 shadow-lg">
+                            ОКАК
+                        </button>
+                    </div>
+                    <div class="bg-white text-purple-600 rounded-full w-16 h-16 flex items-center justify-center font-bold text-xl z-10 shadow-lg absolute left-8 md:left-1/2 md:transform md:-translate-x-1/2">
+                        💔
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Shake Section -->
+    <section class="py-20 px-4 min-h-screen flex flex-col items-center justify-center">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-8" data-aos="fade-up">
+            Встряхни меня! 📱
+        </h2>
+        
+        <p class="text-xl text-center mb-12 max-w-2xl" data-aos="fade-up" data-aos-delay="200">
+            Краткая мемология. Осторожно, некоторые высказывания сегодня вызывают КРИНЖ!
+        </p>
+        
+        <button id="shakeBtn" class="bg-yellow-400 text-purple-900 px-8 py-4 rounded-full text-xl font-bold hover:scale-110 transition-transform duration-300 shadow-2xl mb-12" data-aos="zoom-in">
+            Встряхнуть! 🎲
+        </button>
+        
+        <div id="jokeContainer" class="bg-white/10 backdrop-blur-md p-8 rounded-2xl max-w-2xl text-center" data-aos="fade-up" data-aos-delay="400">
+            <p id="jokeText" class="text-xl">
+                Нажми кнопку или встряхни телефон, чтобы увидеть шутку! 😄
+            </p>
+        </div>
+    </section>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+        
+        // Initialize Day.js with Russian locale
+        dayjs.locale('ru');
+        
+        // Jokes pool
+        const jokes = [
+            "Превед, медвед! 🐻 Культовый мем олбанского языка начала 2000-х",
+            "Йа креведко 🦐 Искажённое 'я креветка' - символ абсурдного юмора рунета",
+            "Аццкий сотона 😈 Когда что-то очень крутое или эпичное",
+            "Ыыыы 😂 Буква Ы как смех - особенность русскоязычного интернета",
+            "Упячка - пляшущий человечек 🕺 Легендарный сайт с безумными анимациями",
+            "Аффтар жжот, пешы исчо! 🔥 Высшая похвала в олбанском языке",
+            "Баян! 🪗 Когда постят что-то старое и всем известное",
+            "Котэ одобряет 😸 Универсальный знак одобрения в рунете",
+            "ЛОЛшто?! 😱 Выражение крайнего удивления",
+            "Вы кто такие? Я вас не звал! 👴 Дед с новогоднего огонька",
+            "Свидетель из Фрязино 👀 Загадочный персонаж российских ток-шоу",
+            "Онотоле! 🧠 Анатолий Вассерман - ходячая энциклопедия",
+            "ЧЯДНТ? 🤷 Что я делаю не так?",
+            "Пруфы или бан! 📎 Требование доказательств",
+            "Я сделяль ✅ Гордость за выполненную работу",
+            "Ничоси! 😮 Выражение удивления",
+            "Кек 😏 Злорадный смех",
+            "Внезапно! 🐴 Конь из демотиватора",
+            "Погладь кота, сука! 🐱 Злой манул требует ласки",
+            "Нельзя просто так взять и... 🧙 Боромир из Властелина колец",
+            "Пацан к успеху шёл 💪 Не фартануло, не судьба",
+            "FFFFFUUUU! 😤 Ярость в чистом виде",
+            "Проблемы? 😏 Trollface - король троллинга",
+            "Forever Alone 😢 Вечно одинокий",
+            "Me Gusta 😊 Мне нравится",
+            "Y U NO?! 🤬 Почему ты не...?!",
+            "Факты о Чаке Норрисе 💪 Чак Норрис не делает отжимания - он отжимает Землю",
+            "It's over 9000! 💥 Уровень силы зашкаливает!",
+            "Давай, до свидания! 👋 Универсальное прощание",
+            "Ой, всё! 🙄 Когда надоело спорить",
+            "Астанавитесь! ✋ Остановитесь немедленно!",
+            "Няш-мяш 💕 Милота зашкаливает",
+            "Ихтамнет 🤐 Их там нет (но они там есть)",
+            "Суровый Челябинск 💪 Настолько суровый, что метеориты боятся",
+            "Опа, Gangnam Style! 🐴 Корейский всадник покорил мир",
+            "Trololo 🎵 Эдуард Хиль и его вокализ",
+            "Карл! 😱 Когда кто-то делает что-то невероятное",
+            "Я человек простой... 🤷 Вижу что-то - делаю что-то",
+            "Дед, ты в курсе? 👴 Проверка на актуальность",
+            "Such wow, much мем! 🐕 Doge - пёс-философ",
+            "Shut up and take my money! 💸 Когда что-то очень нужно",
+            "Not sure if... 🤔 Фрай щурится в сомнениях",
+            "It was aliens 👽 Всё объясняется пришельцами",
+            "All your base are belong to us 🎮 Легендарный перевод из игры",
+            "Косарь за репост 💰 Классическая приманка для репостов"
+        ];
+        
+        let lastJokeIndex = -1;
+        
+        // Confetti button
+        document.getElementById('confettiBtn').addEventListener('click', function() {
+            // Multiple confetti bursts
+            const count = 200;
+            const defaults = {
+                origin: { y: 0.7 }
+            };
+            
+            function fire(particleRatio, opts) {
+                confetti({
+                    ...defaults,
+                    ...opts,
+                    particleCount: Math.floor(count * particleRatio)
+                });
+            }
+            
+            fire(0.25, {
+                spread: 26,
+                startVelocity: 55,
+            });
+            fire(0.2, {
+                spread: 60,
+            });
+            fire(0.35, {
+                spread: 100,
+                decay: 0.91,
+                scalar: 0.8
+            });
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 25,
+                decay: 0.92,
+                scalar: 1.2
+            });
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 45,
+            });
+        });
+        
+        // Shake functionality
+        function showRandomJoke() {
+            const jokeContainer = document.getElementById('jokeContainer');
+            const jokeText = document.getElementById('jokeText');
+            
+            // Get random joke, but not the same as last one
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * jokes.length);
+            } while (randomIndex === lastJokeIndex && jokes.length > 1);
+            
+            lastJokeIndex = randomIndex;
+            
+            // Add shake animation
+            jokeContainer.classList.add('shake-animation');
+            
+            // Update joke text
+            setTimeout(() => {
+                jokeText.textContent = jokes[randomIndex];
+            }, 250);
+            
+            // Remove animation class
+            setTimeout(() => {
+                jokeContainer.classList.remove('shake-animation');
+            }, 500);
+            
+            // Small confetti burst
+            confetti({
+                particleCount: 50,
+                spread: 60,
+                origin: { y: 0.8 }
+            });
+        }
+        
+        // Button click
+        document.getElementById('shakeBtn').addEventListener('click', showRandomJoke);
+        
+        // Device shake detection
+        let lastShakeTime = 0;
+        const shakeThreshold = 15;
+        const shakeTimeout = 1000;
+        
+        if (window.DeviceMotionEvent) {
+            window.addEventListener('devicemotion', function(event) {
+                const current = event.accelerationIncludingGravity;
+                
+                if (current.x && current.y && current.z) {
+                    const deltaX = Math.abs(current.x);
+                    const deltaY = Math.abs(current.y);
+                    const deltaZ = Math.abs(current.z);
+                    
+                    if (deltaX > shakeThreshold || deltaY > shakeThreshold || deltaZ > shakeThreshold) {
+                        const currentTime = new Date().getTime();
+                        
+                        if (currentTime - lastShakeTime > shakeTimeout) {
+                            lastShakeTime = currentTime;
+                            showRandomJoke();
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Request permission for iOS 13+
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+            document.getElementById('shakeBtn').addEventListener('click', function() {
+                DeviceMotionEvent.requestPermission()
+                    .then(response => {
+                        if (response == 'granted') {
+                            console.log('Motion permission granted');
+                        }
+                    })
+                    .catch(console.error);
+            }, { once: true });
+        }
+        
+        // OKAK button functionality
+        document.getElementById('okakBtn').addEventListener('click', function() {
+            const overlay = document.getElementById('okakOverlay');
+            const image = document.getElementById('okakImage');
+            
+            // Show overlay
+            overlay.classList.remove('pointer-events-none');
+            overlay.classList.remove('opacity-0');
+            overlay.classList.add('opacity-100');
+            
+            // Scale up image
+            setTimeout(() => {
+                image.classList.remove('scale-0');
+                image.classList.add('scale-100');
+            }, 100);
+            
+            // Hide after 1 second
+            setTimeout(() => {
+                image.classList.remove('scale-100');
+                image.classList.add('scale-0');
+                
+                setTimeout(() => {
+                    overlay.classList.remove('opacity-100');
+                    overlay.classList.add('opacity-0');
+                    overlay.classList.add('pointer-events-none');
+                }, 500);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
