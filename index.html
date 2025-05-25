@@ -139,6 +139,64 @@
         </div>
     </section>
     
+    <!-- Quest Section -->
+    <section class="py-20 px-4 min-h-screen flex flex-col items-center justify-center">
+        <button id="questBtn" class="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-12 py-6 rounded-full text-2xl font-bold hover:scale-110 transition-all duration-300 shadow-2xl mb-12 animate-pulse" data-aos="zoom-in">
+            КНОПКА
+        </button>
+        
+        <!-- Quest Modal -->
+        <div id="questModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 hidden">
+            <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl max-w-2xl w-full mx-4" data-aos="zoom-in">
+                <!-- Step 1 -->
+                <div id="step1" class="quest-step">
+                    <h3 class="text-3xl font-bold mb-6 text-center">Шаг 1: Координаты 📍</h3>
+                    <p class="text-xl text-center mb-6">Запомни эти координаты:</p>
+                    <div class="bg-purple-700/50 p-6 rounded-xl text-center">
+                        <p class="text-2xl font-mono font-bold">52.091929, 23.768838</p>
+                    </div>
+                    <button class="w-full mt-8 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full text-xl font-bold transition-colors duration-300" onclick="nextStep(2)">
+                        Далее →
+                    </button>
+                </div>
+                
+                <!-- Step 2 -->
+                <div id="step2" class="quest-step hidden">
+                    <h3 class="text-3xl font-bold mb-6 text-center">Шаг 2: Введи код 🔐</h3>
+                    <p class="text-xl text-center mb-6">Нужно получить и ввести код:</p>
+                    <input type="text" id="codeInput" class="w-full bg-white/20 border-2 border-purple-300 rounded-xl px-6 py-4 text-2xl text-center font-mono placeholder-purple-200 focus:outline-none focus:border-purple-400" placeholder="Введи код">
+                    <button class="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full text-xl font-bold transition-colors duration-300" onclick="checkCode()">
+                        Проверить код
+                    </button>
+                    <button class="w-full mt-3 bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full text-lg font-bold transition-colors duration-300" onclick="showHint()">
+                        Как получить код? 🤔
+                    </button>
+                    <div id="hint" class="hidden mt-4 p-4 bg-yellow-400/20 rounded-xl text-yellow-200">
+                        <p class="text-lg">Найди ближайшую девушку, подойди к ней и спроси, будет ли она третьей (это шифр, она скажет тебе код)</p>
+                    </div>
+                    <p id="errorMsg" class="text-red-400 text-center mt-4 hidden">Неверный код! Попробуй ещё раз.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div id="step3" class="quest-step hidden">
+                    <h3 class="text-3xl font-bold mb-6 text-center">Шаг 3: Миссия выполнима! 🎯</h3>
+                    <div class="bg-green-600/30 border-2 border-green-400 p-6 rounded-xl">
+                        <p class="text-2xl text-center font-bold text-green-300">Доступ получен!</p>
+                        <p class="text-xl text-center mt-4">Найди зеленую машину и загляни в багажник 🚗</p>
+                    </div>
+                    <button class="w-full mt-8 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full text-xl font-bold transition-colors duration-300" onclick="closeQuest()">
+                        Завершить квест ✅
+                    </button>
+                </div>
+                
+                <!-- Close button -->
+                <button class="absolute top-4 right-4 text-white/50 hover:text-white text-2xl" onclick="closeQuest()">
+                    ✕
+                </button>
+            </div>
+        </div>
+    </section>
+    
     <!-- Shake Section -->
     <section class="py-20 px-4 min-h-screen flex flex-col items-center justify-center">
         <h2 class="text-4xl md:text-5xl font-bold text-center mb-8" data-aos="fade-up">
@@ -153,7 +211,7 @@
             Встряхнуть! 🎲
         </button>
         
-        <div id="jokeContainer" class="bg-white/10 backdrop-blur-md p-8 rounded-2xl max-w-2xl text-center" data-aos="fade-up" data-aos-delay="400">
+        <div id="jokeContainer" class="bg-white/10 backdrop-blur-md p-8 rounded-2xl max-w-2xl text-center">
             <p id="jokeText" class="text-xl">
                 Нажми кнопку или встряхни телефон, чтобы увидеть шутку! 😄
             </p>
@@ -365,6 +423,51 @@
                 }, 500);
             }, 1000);
         });
+        
+        // Quest functionality
+        document.getElementById('questBtn').addEventListener('click', function() {
+            document.getElementById('questModal').classList.remove('hidden');
+            // Reset to step 1
+            document.querySelectorAll('.quest-step').forEach(step => step.classList.add('hidden'));
+            document.getElementById('step1').classList.remove('hidden');
+            document.getElementById('codeInput').value = '';
+            document.getElementById('errorMsg').classList.add('hidden');
+            document.getElementById('hint').classList.add('hidden');
+        });
+        
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.quest-step').forEach(step => step.classList.add('hidden'));
+            document.getElementById('step' + stepNumber).classList.remove('hidden');
+        }
+        
+        function checkCode() {
+            const code = document.getElementById('codeInput').value.trim();
+            if (code === '666') {
+                document.getElementById('errorMsg').classList.add('hidden');
+                nextStep(3);
+                // Confetti for success
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            } else {
+                document.getElementById('errorMsg').classList.remove('hidden');
+                // Shake animation for error
+                document.getElementById('codeInput').classList.add('shake-animation');
+                setTimeout(() => {
+                    document.getElementById('codeInput').classList.remove('shake-animation');
+                }, 500);
+            }
+        }
+        
+        function showHint() {
+            document.getElementById('hint').classList.remove('hidden');
+        }
+        
+        function closeQuest() {
+            document.getElementById('questModal').classList.add('hidden');
+        }
     </script>
 </body>
 </html>
